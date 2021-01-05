@@ -1,0 +1,26 @@
+.navbar {
+    background-color: orange;
+}
+
+.container {
+    color: white;
+}
+
+.row{
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+}
+
+table {
+    max-width: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 10;
+    text-align: center;
+  }
+  
