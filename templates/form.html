@@ -45,22 +45,21 @@
     </nav>
 
     <div class="hero text-center">
-        <h1>Data</h1>
-        <p>play by play data from the 2013, 2014, 2015, 2016, 2017, 2018, and 2019 NFL Season</p>
+        <div class="panel-heading">Scenario</div>
+                <div class="panel-body">
+                  <form action="/data" method = "POST">
+                      <p>Down <input type = "text" name = "Down" /></p>
+                      <p>Yards To Go <input type = "text" name = "ToGo" /></p>
+                      <p>Yardline <input type = "text" name = "Yardline" /></p>
+                      <p>Play Type (pass or rush) <input type = "text" name = "PlayType" /></p>
+                      <p><input type = "submit" value = "Submit" /></p>
       </div>
       <div class="container">
         <div class="row margin-top-50">
           <div class="col-md-2">
             <aside class="filters">
               <div class="panel panel-default">
-                <div class="panel-heading">Filter Search</div>
-                <div class="panel-body">
-                  <form action="/data" method = "POST">
-                      <p>Down <input type = "text" name = "Down" /></p>
-                      <p>Yards To Go <input type = "text" name = "ToGo" /></p>
-                      <p>Yardline <input type = "text" name = "Yardline" /></p>
-                      <p>Play Type <input type = "text" name = "PlayType" /></p>
-                      <p><input type = "submit" value = "Submit" /></p>
+                
                   </form>
                 </div>
               </div>

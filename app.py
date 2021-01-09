@@ -20,8 +20,8 @@ def data():
     if request.method == 'POST':
         form = request.form
         predict = predictor.predictor(form['Down'],form['ToGo'], form['Yardline'], form['PlayType'])
-        return predict
-        # return render_template('data.html',form = form)
+        #return predict
+        return render_template('data.html', predict = predict)
 
 port = int(os.environ.get('PORT', 5000))
 
