@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request
 import os
+import predictor
 
 app = Flask(__name__)
 
@@ -18,7 +19,9 @@ def data():
         return f"The URL /data is accessed directly. Try going to '/form' to submit form"
     if request.method == 'POST':
         form = request.form
-        return render_template('data.html',form = form)
+        predict = predictor.predictor(form['Down'],form['ToGo'], form['Yardline'], form['PlayType'])
+        return predict
+        # return render_template('data.html',form = form)
 
 port = int(os.environ.get('PORT', 5000))
 

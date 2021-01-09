@@ -1,45 +1,55 @@
+def predictor(a,b,c,d):
+    import matplotlib.pyplot as plt
+    import numpy as np
+    import pandas as pd
+    import os
+    
+    data = 'finaldata.csv'
+    data_df = pd.read_csv(data, encoding="ISO-8859-1")
+    original_df = data_df
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import os
+    data_df['Type'] = np.where(data_df['PlayType'] == "PASS", 0, 1)
+    data_df = data_df.drop(columns = ['Yards','PlayType', "OffenseTeam"])
 
-data = 'finaldata.csv'
-data_df = pd.read_csv(data, encoding="ISO-8859-1")
-original_df = data_df
+    # Assign X (data) and y (target)
+    X = data_df.drop("sucess", axis=1)
+    y = data_df["sucess"]
 
-data_df['Type'] = np.where(data_df['PlayType'] == "PASS", 0, 1)
-data_df = data_df.drop(columns = ['Yards','PlayType', "OffenseTeam"])
+    from sklearn.model_selection import train_test_split
 
-# Assign X (data) and y (target)
-X = data_df.drop("sucess", axis=1)
-y = data_df["sucess"]
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 
-from sklearn.model_selection import train_test_split
+    from sklearn.linear_model import LogisticRegression
+    classifier = LogisticRegression()
+    classifier.fit(X_train, y_train)
+    training_score = classifier.score(X_train, y_train)
+    testing_score = classifier.score(X_test, y_test)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
+    down = int(a)
+    togo = int(b)
+    yardline = int(c)
+    playtype = d
 
-from sklearn.linear_model import LogisticRegression
-classifier = LogisticRegression()
-classifier.fit(X_train, y_train)
-training_score = classifier.score(X_train, y_train)
-testing_score = classifier.score(X_test, y_test)
+    if playtype == "pass":
+        play = 0
+    elif playtype == "rush":
+        play = 1
 
-down = int(input("down: "))
-togo = int(input('togo: '))
-yardline = int(input('yardline: '))
-playtype = input('pass or rush: ')
+    new_input = [[down, togo, yardline, int(play)]]
 
-if playtype == "pass":
-    play = 0
-elif playtype == "rush":
-    play = 1
+    successful = classifier.predict(new_input)
 
-new_input = [[down, togo, yardline, int(play)]]
+    if successful == "yes":
+        success = "your play was successful"
+    elif successful == "no":
+        success = "your play was not successful"
 
-successful = classifier.predict(new_input)
+    return success
 
-if successful == "yes":
-    print("your play was successful")
-elif successful == "no":
-    print("your play was not successful")
+# a = input('What down is it? ')
+# b = input("How many yards to go? ")
+# c = input("What yardline are you on? ")
+# d = input("Are you going to pass or rush? ")
+
+# test = predictor(a,b,c,d)
+# print(test)
