@@ -1,3 +1,7 @@
 Flask
 gunicorn
 numpy
+os
+pandas
+matplotlib
+predictor
